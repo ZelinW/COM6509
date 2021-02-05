@@ -16,6 +16,7 @@ OPTIONS:
 import sys
 import getopt
 import pickle
+import datetime
 
 from my_retriever import Retrieve
 
@@ -110,6 +111,7 @@ class Result_Store:
 
 if __name__ == '__main__':
 
+    start = datetime.datetime.now()
     config = CommandLine()
     if config.exit:
         sys.exit(0)
@@ -120,6 +122,9 @@ if __name__ == '__main__':
     for (qid, query) in queries:
         results = retrieve.for_query(query)
         all_results.store(qid, results)
+    end = datetime.datetime.now()
+    time = (end - start).total_seconds()
+    print(time)
     print("Finished!")
 
     all_results.output(config.outfile)
