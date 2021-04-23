@@ -1,0 +1,17 @@
+# functions to show an image
+def imshow(img):
+    npimg = img.numpy()
+    plt.figure(figsize=(10,10))
+    plt.imshow(np.transpose(npimg, (1, 2, 0))) #rearrange dimensions to numpy format for disply
+    plt.show()
+
+imshowdata2 = trainset.data
+imshowlabel2 = trainset.targets
+plotindx=list()
+for i in range(10):
+    items = np.where(imshowlabel2.numpy() == i)
+    plotindx.extend(items[0][:8])
+
+imshowdata2 = np.expand_dims(imshowdata2[plotindx,:],1)
+print(imshowdata2.shape)
+imshow(torchvision.utils.make_grid(torch.tensor(imshowdata2)))
